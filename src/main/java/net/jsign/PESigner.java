@@ -17,6 +17,8 @@
 package net.jsign;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -162,12 +164,23 @@ public class PESigner {
     public void sign(PEFile file) throws Exception {
         // pad the file on a 8 byte boundary
         // todo only if there was no previous certificate table
+        long originalSize = file.getLength();
+
         file.pad(8);
         
         // compute the signature
         CertificateTableEntry entry = createCertificateTableEntry(file);
         
         file.writeDataDirectory(DataDirectoryType.CERTIFICATE_TABLE, entry.toBytes());
+
+        ByteBuffer buffer = ByteBuffer.allocate(2);
+        buffer.order(ByteOrder.LITTLE_ENDIAN);
+        buffer.putShort((short) ((file.getLength() + entry.toBytes().length) - originalSize));
+        file.write(originalSize - buffer.capacity(), buffer.array());
+
+        entry = createCertificateTableEntry(file);
+        file.writeDataDirectory(DataDirectoryType.CERTIFICATE_TABLE, entry.toBytes());
+
         file.close();
     }
 

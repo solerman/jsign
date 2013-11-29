@@ -28,6 +28,9 @@ Version 1.3, in development
 * The command line tool now supports HTTP proxies (contributed by Michael Szediwy)
 * RFC 3161 timestamping services are now supported (contributed by Florent Daigniere)
 
+In this Branch, 2013-11-29
+* Fixed sign code to work with Launch4j exe on Java 6
+
 Version 1.2, 2013-01-10
 * Reduced the memory usage when signing large files
 * Files over 2GB are now supported
