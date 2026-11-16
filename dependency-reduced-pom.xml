@@ -295,13 +295,10 @@
   </reporting>
   <distributionManagement>
     <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <id>wonder-releases</id>
+      <name>Wonder-Releases</name>
+      <url>http://192.168.0.81:7070/repository/wonder/</url>
     </repository>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
   </distributionManagement>
   <properties>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
